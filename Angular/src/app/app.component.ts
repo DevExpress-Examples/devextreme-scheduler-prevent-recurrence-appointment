@@ -1,20 +1,78 @@
 import { Component } from '@angular/core';
-import { ClickEvent } from 'devextreme/ui/button';
+import { AppointmentAddingEvent, AppointmentUpdatingEvent } from 'devextreme/ui/scheduler';
+import { isOverlapRecurrentAppointment } from '../utils/isOverlapRecurrentAppointment';
+import { appointments } from '../data/appointments';
+import { CloseButtonOptions, Appointment } from './interfaces';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
+
 export class AppComponent {
-  title = 'Angular';
+  allDayPanelMode: 'all' | 'allDay' | 'hidden' = 'hidden';
 
-  counter = 0;
+  dataSource = appointments;
 
-  buttonText = 'Click count: 0';
+  currentDate = new Date(2022, 9, 1);
 
-  onClick(e: ClickEvent): void {
-    this.counter++;
-    this.buttonText = `Click count: ${this.counter}`;
+  popupVisible = false;
+
+  closeButtonOptions: CloseButtonOptions = {
+    text: 'Close',
+    onClick: (): void => {
+      this.popupVisible = false;
+    },
+  };
+
+  handleAppointmentAdd(
+    event: AppointmentAddingEvent,
+  ): void {
+    this.handleAppointmentActions(
+      event,
+      this.getRecurrentAppointments(),
+      event.appointmentData as Appointment,
+    );
+  }
+
+  handleAppointmentUpdate(
+    event: AppointmentUpdatingEvent,
+  ): void {
+    const recurrentAppointments = this.getRecurrentAppointments()
+      .filter((appointment) => appointment !== event.oldData);
+    this.handleAppointmentActions(
+      event,
+      recurrentAppointments,
+      event.newData as Appointment,
+    );
+  }
+
+  private handleAppointmentActions(
+    event: AppointmentAddingEvent | AppointmentUpdatingEvent,
+    recurrentAppointments: Appointment[],
+    newAppointment: Appointment,
+  ): void {
+    for (const recurrentAppointment of recurrentAppointments) {
+      const isOverlap = isOverlapRecurrentAppointment(
+        event as AppointmentAddingEvent,
+        recurrentAppointment,
+        newAppointment,
+      );
+      if (isOverlap) {
+        event.cancel = true;
+        this.popupVisible = true;
+      }
+    }
+  }
+
+  private getRecurrentAppointments(): Appointment[] {
+    return this.dataSource
+      .filter((appointment) => appointment?.recurrenceRule)
+      .map((appointment) => ({
+        ...appointment,
+        startDate: new Date(appointment.startDate),
+        endDate: new Date(appointment.endDate),
+      }));
   }
 }
