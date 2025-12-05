@@ -1,4 +1,6 @@
-export const defaultData = [
+import type { Appointment } from '../app/interfaces';
+
+export const appointments: Appointment[] = [
   {
     text: 'Watercolor Landscape',
     startDate: new Date(2020, 10, 1, 9, 30),
@@ -10,5 +12,5 @@ export const defaultData = [
     startDate: new Date(2020, 10, 1, 12),
     endDate: new Date(2020, 10, 1, 13, 30),
     recurrenceRule: 'FREQ=WEEKLY;BYDAY=TU,FR',
-  }
+  },
 ];

@@ -1,4 +1,10 @@
-.default-style {
-  margin: 50px;
-  width: 90vw;
+:host {
+  display: block;
+  height: 100%;
+}
+
+.scheduler-container {
+  height: 100vh;
+  padding: 16px;
+  box-sizing: border-box;
 }

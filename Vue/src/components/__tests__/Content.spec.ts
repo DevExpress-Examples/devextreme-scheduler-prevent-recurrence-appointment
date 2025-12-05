@@ -4,8 +4,17 @@ import { mount } from '@vue/test-utils';
 import Content from '../HomeContent.vue';
 
 describe('Content', () => {
-  it('renders properly', () => {
-    const wrapper = mount(Content, { props: { text: 'count' } });
-    expect(wrapper.text()).toContain('count');
+  it('renders scheduler container', () => {
+    const wrapper = mount(Content, {
+      global: {
+        stubs: {
+          DxScheduler: true,
+          DxPopup: true,
+          DxPosition: true,
+          DxToolbarItem: true,
+        },
+      },
+    });
+    expect(wrapper.find('.scheduler-container').exists()).toBe(true);
   });
 });

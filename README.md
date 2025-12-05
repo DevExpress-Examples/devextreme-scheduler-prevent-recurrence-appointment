@@ -18,9 +18,9 @@ This example demonstrates how to prevent adding a new appointment or drag exist 
 - **jQuery**
     - [index.js](jQuery/src/index.js)
 - **React**
-    - [App.js](React/src/App.jsx)
+    - [App.tsx](React/src/App.tsx)
 - **Vue**
-    - [App.vue](Vue/src/App.vue)
+    - [HomeContent.vue](Vue/src/components/HomeContent.vue)
 
 ## Documentation
 

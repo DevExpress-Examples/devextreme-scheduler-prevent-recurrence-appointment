@@ -1,5 +1,11 @@
 {
     "port": 5050,
     "startPath": "src/index.html",
-    "files": ["./src/**/*.{html,css,js}"]
+    "files": ["./src/**/*.{html,css,js}"],
+    "server": {
+        "baseDir": "./",
+        "routes": {
+            "/node_modules": "node_modules"
+        }
+    }
 }

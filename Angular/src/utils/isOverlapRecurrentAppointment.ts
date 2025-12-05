@@ -1,6 +1,5 @@
-import {AppointmentAddingEvent} from 'devextreme/ui/scheduler';
-import {RRule, rrulestr} from 'rrule';
-import {Appointment} from '../app/interfaces';
+import { RRule, rrulestr } from 'rrule';
+import type { Appointment } from '../app/interfaces';
 
 function isOverlapUsualRecurrentAppointment(
   recurrentStartDatesInView: Date[],
@@ -13,22 +12,25 @@ function isOverlapUsualRecurrentAppointment(
   const newStartTime = newAppointment.startDate.getTime();
   const newEndTime = newAppointment.endDate.getTime();
 
-  for(const recurrentStartDate of recurrentStartDatesInView) {
+  for (const recurrentStartDate of recurrentStartDatesInView) {
     const recurrentStartTime = recurrentStartDate.getTime();
     const recurrentEndTime = recurrentStartTime + recurrentDuration;
 
     if (
-      newStartTime > recurrentStartTime && newStartTime < recurrentEndTime
-      || newEndTime > recurrentStartTime && newEndTime < recurrentEndTime
-      || recurrentStartTime > newStartTime && recurrentStartTime < newEndTime) {
+      (newStartTime > recurrentStartTime && newStartTime < recurrentEndTime)
+      || (newEndTime > recurrentStartTime && newEndTime < recurrentEndTime)
+      || (recurrentStartTime > newStartTime && recurrentStartTime < newEndTime)
+    ) {
       return true;
     }
   }
+
   return false;
 }
 
 export function isOverlapRecurrentAppointment(
-  event: AppointmentAddingEvent,
+  viewStartDate: Date,
+  viewEndDate: Date,
   recurrentAppointment: Appointment,
   newAppointment: Appointment,
 ): boolean {
@@ -40,12 +42,13 @@ export function isOverlapRecurrentAppointment(
     dtstart: recurrentAppointment?.startDate,
   });
   const recurrentStartDatesInView = rule.between(
-    event.component.getStartViewDate(),
-    event.component.getEndViewDate()
+    viewStartDate,
+    viewEndDate,
   );
 
   return isOverlapUsualRecurrentAppointment(
     recurrentStartDatesInView,
     recurrentAppointment,
-    newAppointment);
+    newAppointment,
+  );
 }

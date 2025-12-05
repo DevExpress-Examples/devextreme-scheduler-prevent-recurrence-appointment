@@ -1,8 +1,23 @@
-.main {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+html,
+body,
+#app {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
-  margin: 50px 50px;
-  width: 90vh;
+}
+
+.app-root {
+  height: 100%;
+}
+
+.scheduler-container {
+  height: 100%;
+  padding: 16px;
+  box-sizing: border-box;
 }

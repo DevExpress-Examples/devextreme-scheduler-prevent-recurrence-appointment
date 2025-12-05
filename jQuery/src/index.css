@@ -1,4 +1,19 @@
+html,
+body {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
 .demo-container {
-    margin: 50px;
-    width: 90vw;
+    height: 100vh;
+    padding: 16px;
+    box-sizing: border-box;
+}
+
+#scheduler {
+    height: 100%;
 }
