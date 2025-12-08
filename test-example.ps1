@@ -125,7 +125,7 @@ function Process-JavaScriptProjects {
             Remove-Item -Force package-lock.json -ErrorAction SilentlyContinue
             Install-Packages -folderName $folderName -packages $packages -buildVersion $buildVersion
             Write-Output "`nInstalling remaining packages in $folderName"
-            npm install --save --save-exact --no-fund --loglevel=error --legacy-peer-deps
+            npm install --save --save-exact --no-fund --loglevel=error
             if (-not $?) {
                 throw "ERROR: Failed to install remaining packages in $folderName"
             }
@@ -238,7 +238,7 @@ function Process-AspNetCoreProject {
                 }
 
                 Write-Host "Installing NPM dependencies..."
-                npm install --save --save-exact --no-fund --loglevel=error --legacy-peer-deps
+                npm install --save --save-exact --no-fund --loglevel=error
                 if (-not $?) {
                     throw "Failed to install npm dependencies"
                 }
