@@ -3,8 +3,12 @@ import { AppointmentAddingEvent, AppointmentUpdatingEvent } from 'devextreme/ui/
 import { isOverlapRecurrentAppointment } from '../utils/isOverlapRecurrentAppointment';
 import { appointments } from '../data/appointments';
 import { CloseButtonOptions, Appointment } from './interfaces';
+import { DxSchedulerModule } from 'devextreme-angular/ui/scheduler';
+import { DxPopupModule } from 'devextreme-angular/ui/popup';
+import { DxButtonModule } from 'devextreme-angular/ui/button';
 
 @Component({
+  imports: [DxSchedulerModule, DxPopupModule, DxButtonModule],
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
