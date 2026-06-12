@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { AppointmentAddingEvent, AppointmentUpdatingEvent } from 'devextreme/ui/scheduler';
 import { isOverlapRecurrentAppointment } from '../utils/isOverlapRecurrentAppointment';
 import { appointments } from '../data/appointments';
@@ -11,6 +11,7 @@ import { DxButtonModule } from 'devextreme-angular/ui/button';
   imports: [DxSchedulerModule, DxPopupModule, DxButtonModule],
   selector: 'app-root',
   templateUrl: './app.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./app.component.scss'],
 })
 
